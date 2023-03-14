@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@malita/authentication';
 import { OffersSubscriptionModule } from '../Features/offers-subscription/offers-subscription.module';
 import * as fromComponents from './components';
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
-    path: '',
+    path: 'home',
     component: fromComponents.MainComponent,
+    canActivate: [AuthGuard],
     children: [
       {
-        path: 'home',
+        path: '',
         pathMatch: 'full',
         loadChildren: () => OffersSubscriptionModule,
       },

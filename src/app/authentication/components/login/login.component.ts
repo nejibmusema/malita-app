@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { LoginPayload, LoginResponse } from '../../models';
 import { AuthService } from '../../services';
@@ -12,11 +13,11 @@ import { AuthService } from '../../services';
 export class LoginComponent implements OnInit {
   public loginFormGroup: FormGroup;
   public isPasswordVisible = false;
-  public authSubject$ = new Subject<LoginResponse>();
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -43,7 +44,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this._authService.login(this.loginFormGroup.value).subscribe((response) => {
       this._authService.saveAccessTokenToStorage(response); // writing it on the local storage;
-      this.authSubject$.next(response);
+      this._authService.isAuthenticated$.next(true);
+      this._router.navigate(['/app/home']);
     });
   }
 }

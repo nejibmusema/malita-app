@@ -6,7 +6,6 @@ const routes: Routes = [
   {
     path: 'login',
     component: fromComponents.LoginComponent,
-    canActivate: [],
   },
 ];
 

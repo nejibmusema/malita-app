@@ -31,17 +31,16 @@ export class AuthService {
    * write the access token on the local storage
    * @param data Access Token
    */
-  public saveAccessTokenToStorage(data: LoginResponse) {
+  public writeAuthTokenToStorage(data: LoginResponse) {
     localStorage.setItem('authToken', JSON.stringify(data.authToken));
   }
 
   /**
    *
-   * @returns access token from the local storage
+   * @returns auth token from the local storage
    */
-  public checkAuthentication(): boolean {
-    if (localStorage.getItem('authToken')) return true;
-    return false;
+  public readAuthTokenFromStorage(): string {
+    return localStorage.getItem('authToken');
   }
 
   public isAuthenticated(): Observable<boolean> {

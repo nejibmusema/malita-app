@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this._authService.login(this.loginFormGroup.value).subscribe((response) => {
-      this._authService.saveAccessTokenToStorage(response); // writing it on the local storage;
+      this._authService.writeAuthTokenToStorage(response); // writing it on the local storage;
       this._authService.isAuthenticated$.next(true);
       this._router.navigate(['/app/home']);
     });

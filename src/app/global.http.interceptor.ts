@@ -20,19 +20,21 @@ enum ErrorMessage {
 
 @Injectable()
 export class GlobalHttpInterceptor implements HttpInterceptor {
-  private refreshTokenApi: string;
-  constructor(
-    @Inject('environment') private environment: any,
-    private _authService: AuthService
-  ) {
-    this.refreshTokenApi = `${environment.idpAuthority}/connect/token`;
-  }
+  constructor(private _authService: AuthService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
+    const authToken = this._authService.readAuthTokenFromStorage();
+    let modifiedRequest = request;
+    if (authToken) {
+      modifiedRequest = request.clone({
+        headers: request.headers.append(`Authorization`, `Bearer ${authToken}`),
+      });
+    }
+
+    return next.handle(modifiedRequest).pipe(
       catchError((error) => {
         let title: string | ErrorMessage = 'Unknown error';
         let message;

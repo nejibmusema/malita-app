@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+@import "@angular/material/theming";
+@import "palette-maker.sass";
+@include mat.core();
+@font-face {
+    font-family: Muli;
+    src: url("https://fonts.gstatic.com/s/muli/v28/7Auwp_0qiz-afTLGLQ.woff2") format("opentype");
+}
+
+$primary-palette: createPalette(#35b976); // generates the primary color palette for the above colors
+$secondary-palette: createPalette(#de4097); // generates the secondary color palette for the above colors
+$custom-typography: mat.define-typography-config(
+    $font-family: "'Muli','arial', sans-serif",
+); // added my custom font
+
+//configure material to define custom Theme
+$custom-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: mat-palette($primary-palette),
+            accent: mat-palette($secondary-palette),
+        ),
+        typography: $custom-typography,
+    )
+);
+
+@include mat.all-component-themes($custom-theme);
+@include mat.all-component-typographies($custom-typography);
+
+:root {
+    --spacing: 1rem;
+    --spacing-sm: 0.5rem;
+    --spacing-xl: 2rem;
+}

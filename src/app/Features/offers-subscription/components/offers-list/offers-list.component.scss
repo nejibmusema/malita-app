@@ -1,3 +1,7 @@
+.sort-bar {
+    display: flex;
+    justify-content: flex-end;
+}
 .container {
     padding-top: var(--spacing-xl);
     display: grid;

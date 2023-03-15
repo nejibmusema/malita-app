@@ -1,1 +1,4 @@
-<p>offers-list works!</p>
+<div class="container">
+  <app-offers-item class="container__item" *ngFor="let offer of offersList" [offer]="offer"
+    (onCardOpened)="onCardOpened($event)"></app-offers-item>
+</div>

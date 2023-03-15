@@ -1,0 +1,11 @@
+<div class="card" (click)="openCard(offer.id)">
+  <div class="card__header">
+    <span>{{offer.name}}</span>
+  </div>
+  <div class="card__body">
+    <p>Contract</p>
+  </div>
+  <div class="card__footer">
+    <p>{{offer.contractStartDate| date : "mediumDate"}} - {{offer.contractEndDate| date : "mediumDate"}}</p>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<mat-expansion-panel style="margin-top:10px" [hideToggle]="subscription.usage?false:true"
+  (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span class="title">{{subscription.name}}</span>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <p>Type: <strong>{{subscription.type}}</strong></p>
+  <p>Line: <strong>{{subscription.line}}</strong></p>
+  <p *ngFor="let item of subscription.usage"><span>{{item.type}}</span><br> <span>Used: <strong> {{item.used}} </strong>
+      out of
+      <strong>{{item.limit}}</strong> limit</span></p>
+</mat-expansion-panel>

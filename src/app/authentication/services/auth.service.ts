@@ -40,7 +40,7 @@ export class AuthService {
    * @returns auth token from the local storage
    */
   public readAuthTokenFromStorage(): string {
-    return localStorage.getItem('authToken');
+    return JSON.parse(localStorage.getItem('authToken'));
   }
 
   public isAuthenticated(): Observable<boolean> {

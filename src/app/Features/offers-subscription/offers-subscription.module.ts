@@ -4,6 +4,7 @@ import { MaterialModule } from '@malita/material';
 import { SharedModule } from '@malita/shared';
 import { OffersSubscriptionRoutingModule } from './offers-subscription-routing.module';
 import * as fromComponents from './components';
+import * as fromService from './services';
 
 @NgModule({
   declarations: [fromComponents.components],
@@ -13,5 +14,6 @@ import * as fromComponents from './components';
     SharedModule,
     OffersSubscriptionRoutingModule,
   ],
+  providers: [fromService.services],
 })
 export class OffersSubscriptionModule {}

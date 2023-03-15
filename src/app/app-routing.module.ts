@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutModule } from '@malita/layout';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { AuthGuard } from './authentication/guards';
 import { MaterialModule } from './material/material.module';
 
 const routes: Routes = [

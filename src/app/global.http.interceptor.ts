@@ -9,6 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from '@malita/authentication';
+import { NotificationService } from './shared';
 
 enum ErrorMessage {
   Error400 = 'Unknown error',
@@ -20,7 +21,10 @@ enum ErrorMessage {
 
 @Injectable()
 export class GlobalHttpInterceptor implements HttpInterceptor {
-  constructor(private _authService: AuthService) {}
+  constructor(
+    private _authService: AuthService,
+    private _notificationService: NotificationService
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -37,21 +41,19 @@ export class GlobalHttpInterceptor implements HttpInterceptor {
     return next.handle(modifiedRequest).pipe(
       catchError((error) => {
         let title: string | ErrorMessage = 'Unknown error';
-        let message;
         if (error instanceof HttpErrorResponse) {
           if (error.error instanceof ErrorEvent) {
             title = 'Error Event';
-            message = error.name;
           } else {
             title =
               error.error?.message ?? ErrorMessage[`Error${error.status}`];
-            message = 'Sorry there is an error, please contact the admin';
             if (error.status === 401) {
-              this._authService.logout();
+              // if 401 we redirect the user to login page
+              this._authService.redirectToLogin();
             }
           }
         }
-        console.log(`title:${title} message:${message}`); // writing the error if we need we can configure a pop up notification to show the message to the user
+        this._notificationService.openSnackBar(title, 'close');
         return throwError(() => error);
       })
     );

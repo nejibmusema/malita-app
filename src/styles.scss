@@ -33,10 +33,21 @@ $custom-theme: mat.define-light-theme(
     --spacing-xl: 2rem;
     --primary: #35b976;
     --secondary: #de4097;
+    --warning: #dc3545;
     --gray: #f2f2f2;
     --inverse: #fff;
 }
+
 body {
     margin: 0px;
     padding: 0px;
+}
+
+// mat snackbar style
+.light-error-snackbar {
+    color: var(--inverse);
+    --mdc-snackbar-container-color: var(--warning);
+    .mat-simple-snackbar-action {
+        color: var(--inverse);
+    }
 }

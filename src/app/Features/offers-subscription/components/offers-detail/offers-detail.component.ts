@@ -33,10 +33,10 @@ export class OffersDetailComponent {
    * @returns
    */
   private _ascSort(a: SubscriptionModel, b: SubscriptionModel) {
-    if (a.name < b.name) {
+    if (a.name < b.name || a.line < b.line) {
       return -1;
     }
-    if (a.name > b.name) {
+    if (a.name > b.name || a.line > b.line) {
       return 1;
     }
     return 0;
@@ -49,10 +49,10 @@ export class OffersDetailComponent {
    * @returns
    */
   private _descSort(a: SubscriptionModel, b: SubscriptionModel) {
-    if (a.name < b.name) {
+    if (a.name < b.name || a.line < b.line) {
       return 1;
     }
-    if (a.name > b.name) {
+    if (a.name > b.name || a.line > b.line) {
       return -1;
     }
     return 0;

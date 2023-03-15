@@ -50,12 +50,11 @@ export class OffersListComponent implements OnInit {
   public sortOffers(type: string) {
     switch (type) {
       case 'Asc': {
-        this.offersList.sort(this._ascSortOffers);
+        this.offersList.sort(this._ascSort);
         break;
       }
-
       case 'Desc': {
-        this.offersList.sort(this._descSortOffers);
+        this.offersList.sort(this._descSort);
         break;
       }
     }
@@ -67,7 +66,7 @@ export class OffersListComponent implements OnInit {
    * @param b
    * @returns
    */
-  private _ascSortOffers(a: Offer, b: Offer) {
+  private _ascSort(a: Offer, b: Offer) {
     if (new Date(a.contractStartDate) < new Date(b.contractStartDate)) {
       return -1;
     }
@@ -83,7 +82,7 @@ export class OffersListComponent implements OnInit {
    * @param b
    * @returns
    */
-  private _descSortOffers(a: Offer, b: Offer) {
+  private _descSort(a: Offer, b: Offer) {
     if (new Date(a.contractStartDate) < new Date(b.contractStartDate)) {
       return 1;
     }

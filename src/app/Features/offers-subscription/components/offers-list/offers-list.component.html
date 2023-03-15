@@ -1,3 +1,16 @@
+<div class="sort-bar" *ngIf="offersList">
+  <mat-form-field appearance="fill">
+    <mat-label>Sort Offers</mat-label>
+    <mat-select>
+      <mat-option (click)="sortOffers('Asc')">
+        By Descending Order
+      </mat-option>
+      <mat-option (click)="sortOffers('Desc')">
+        By Ascending Order
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 <div class="container">
   <app-offers-item class="container__item" *ngFor="let offer of offersList" [offer]="offer"
     (onCardOpened)="onCardOpened($event)"></app-offers-item>

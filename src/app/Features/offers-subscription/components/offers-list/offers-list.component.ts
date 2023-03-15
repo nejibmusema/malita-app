@@ -11,6 +11,7 @@ import { OffersService } from '../../services';
 })
 export class OffersListComponent implements OnInit {
   public offersList: Offer[];
+
   constructor(
     private _offersService: OffersService,
     public dialog: MatDialog
@@ -44,5 +45,51 @@ export class OffersListComponent implements OnInit {
 
   private _getOfferDetails(offerId: number) {
     return this._offersService.getOfferDetail(offerId);
+  }
+
+  public sortOffers(type: string) {
+    switch (type) {
+      case 'Asc': {
+        this.offersList.sort(this._ascSortOffers);
+        break;
+      }
+
+      case 'Desc': {
+        this.offersList.sort(this._descSortOffers);
+        break;
+      }
+    }
+  }
+
+  /**
+   * sorts the array in asc order based on contract Start date
+   * @param a
+   * @param b
+   * @returns
+   */
+  private _ascSortOffers(a: Offer, b: Offer) {
+    if (new Date(a.contractStartDate) < new Date(b.contractStartDate)) {
+      return -1;
+    }
+    if (new Date(a.contractStartDate) > new Date(b.contractStartDate)) {
+      return 1;
+    }
+    return 0;
+  }
+
+  /**
+   * sorts the array in desc order based on contract Start Date
+   * @param a
+   * @param b
+   * @returns
+   */
+  private _descSortOffers(a: Offer, b: Offer) {
+    if (new Date(a.contractStartDate) < new Date(b.contractStartDate)) {
+      return 1;
+    }
+    if (new Date(a.contractStartDate) > new Date(b.contractStartDate)) {
+      return -1;
+    }
+    return 0;
   }
 }

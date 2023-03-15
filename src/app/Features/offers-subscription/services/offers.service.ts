@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Offer } from '../models';
+import { Offer, SubscriptionModel } from '../models';
 
 @Injectable()
 export class OffersService {
@@ -19,7 +19,16 @@ export class OffersService {
     const url = `${this.apiUrl}offers`;
     return this.http.get<any>(url).pipe(
       map((response) => {
-        return response.offers;
+        return response?.offers;
+      })
+    );
+  }
+
+  public getOfferDetail(offerId: number): Observable<SubscriptionModel[]> {
+    const url = `${this.apiUrl}offers/${offerId}/subscriptions`;
+    return this.http.get<any>(url).pipe(
+      map((response) => {
+        return response?.subscriptions;
       })
     );
   }

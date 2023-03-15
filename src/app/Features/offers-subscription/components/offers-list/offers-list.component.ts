@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { OffersDetailComponent } from '..';
 import { Offer } from '../../models';
 import { OffersService } from '../../services';
 
@@ -9,7 +11,10 @@ import { OffersService } from '../../services';
 })
 export class OffersListComponent implements OnInit {
   public offersList: Offer[];
-  constructor(private _offersService: OffersService) {}
+  constructor(
+    private _offersService: OffersService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this._getOffers();
@@ -22,6 +27,22 @@ export class OffersListComponent implements OnInit {
   }
 
   public onCardOpened(event: { offerId: number }) {
-    console.log(event);
+    this._getOfferDetails(event.offerId).subscribe((response) => {
+      const dialogRef = this.dialog.open(OffersDetailComponent, {
+        data: response,
+        width: window.innerWidth > 640 ? '45%' : '100%',
+        maxHeight: '90vh',
+      });
+
+      dialogRef.afterClosed().subscribe(({ event, data }) => {
+        if (!event) {
+          return;
+        }
+      });
+    });
+  }
+
+  private _getOfferDetails(offerId: number) {
+    return this._offersService.getOfferDetail(offerId);
   }
 }

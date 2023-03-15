@@ -1,1 +1,10 @@
-<p>offers-detail works!</p>
+<h2 mat-dialog-title>Offer Details</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-accordion>
+    <app-subscription-item *ngFor="let subscription of subscriptionList" [subscription]="subscription">
+    </app-subscription-item>
+  </mat-accordion>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

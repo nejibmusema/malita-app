@@ -1,4 +1,17 @@
-<h2 mat-dialog-title>Offer Details</h2>
+<div class="header-bar">
+  <h2 mat-dialog-title>Subscriptions</h2>
+  <mat-form-field appearance="fill" *ngIf="subscriptionList">
+    <mat-label>Sort Subscriptions</mat-label>
+    <mat-select>
+      <mat-option (click)="sortSubscription('Asc')">
+        By Descending Order
+      </mat-option>
+      <mat-option (click)="sortSubscription('Desc')">
+        By Ascending Order
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 <mat-dialog-content class="mat-typography">
   <mat-accordion>
     <app-subscription-item *ngFor="let subscription of subscriptionList" [subscription]="subscription">

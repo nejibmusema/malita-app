@@ -31,4 +31,11 @@ $custom-theme: mat.define-light-theme(
     --spacing: 1rem;
     --spacing-sm: 0.5rem;
     --spacing-xl: 2rem;
+    --primary: #35b976;
+    --secondary: #de4097;
+    --gray: #f2f2f2;
+}
+body {
+    margin: 0px;
+    padding: 0px;
 }

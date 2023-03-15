@@ -1,0 +1,34 @@
+.card {
+    border-right: 3px solid;
+    border-color: var(--primary);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    padding: var(--spacing);
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-5px);
+        transition-delay: 300ms;
+    }
+
+    &__header {
+        color: var(--primary) !important;
+        font-weight: 400 !important;
+        font-size: 1.5rem;
+        margin-bottom: var(--spacing);
+    }
+    &__body {
+        margin-top: var(--spacing-xl);
+        p {
+            margin: 0px;
+        }
+    }
+    &__footer {
+        display: flex;
+        justify-items: flex-start;
+        justify-content: space-between;
+        p {
+            margin: 0px;
+        }
+    }
+}

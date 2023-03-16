@@ -5,7 +5,7 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -22,7 +22,14 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@malita/shared": ["src/app/shared/index.ts"],
+      "@malita/material": ["src/app/material/index.ts"],
+      "@malita/authentication": ["src/app/authentication/index.ts"],
+      "@malita/layout": ["src/app/layout/index.ts"],
+
+    },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -31,3 +38,4 @@
     "strictTemplates": true
   }
 }
+

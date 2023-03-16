@@ -1,0 +1,8 @@
+<mat-toolbar color="primary" class="header">
+  <img class="" src="/assets/images/logo.png" alt="Malita-logo">
+  <span class="header__spacer"></span>
+  <button *ngIf=" this.isLoggedIn$|async" (click)="logout()" mat-icon-button aria-label="button with logout icon"
+    alt="logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>

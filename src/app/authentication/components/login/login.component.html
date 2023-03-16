@@ -1,0 +1,31 @@
+<div class="login">
+  <img src="/assets/images/logo.png" alt="Malita-logo">
+  <form [formGroup]="loginFormGroup" class="login__form">
+
+    <mat-form-field appearance="fill" class="login__form__field">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" type="text">
+      <mat-error appFormControlError [control]="loginFormGroup.get('username')" fieldName="Username">
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="login__form__field">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" [type]="isPasswordVisible?'text':'password'">
+      <button matSuffix mat-icon-button aria-label="showPassword" (click)="showPassword()">
+        <mat-icon *ngIf="isPasswordVisible"><span class="material-icons-outlined">
+            visibility
+          </span></mat-icon>
+        <mat-icon *ngIf="!isPasswordVisible"><span class="material-icons-outlined">
+            visibility_off
+          </span></mat-icon>
+      </button>
+      <mat-error appFormControlError [control]="loginFormGroup.get('password')" fieldName="Password">
+      </mat-error>
+    </mat-form-field>
+    <div class="login__form__footer">
+      <mat-checkbox>Checked</mat-checkbox>
+      <span><a href="#">Forget Password?</a></span>
+    </div>
+    <button mat-stroked-button [disabled]="loginFormGroup.invalid" (click)="onSubmit()">Login</button>
+  </form>
+</div>

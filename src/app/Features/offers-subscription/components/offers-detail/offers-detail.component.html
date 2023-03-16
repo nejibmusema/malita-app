@@ -1,0 +1,23 @@
+<div class="header-bar">
+  <h2 mat-dialog-title>Subscriptions</h2>
+  <mat-form-field appearance="fill" *ngIf="subscriptionList">
+    <mat-label>Sort Subscriptions</mat-label>
+    <mat-select>
+      <mat-option (click)="getOfferDetails('Asc')">
+        By Descending Order
+      </mat-option>
+      <mat-option (click)="getOfferDetails('Desc')">
+        By Ascending Order
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<mat-dialog-content class="mat-typography">
+  <mat-accordion>
+    <app-subscription-item *ngFor="let subscription of subscriptionList" [subscription]="subscription">
+    </app-subscription-item>
+  </mat-accordion>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

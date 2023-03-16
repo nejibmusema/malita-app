@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgHttpLoaderModule } from 'ng-http-loader';
@@ -9,6 +9,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
 import { AuthenticationModule } from '@malita/authentication';
 import { SharedModule } from './shared';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +23,9 @@ import { SharedModule } from './shared';
     BrowserAnimationsModule,
     AuthenticationModule,
     SharedModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   providers: [
     {

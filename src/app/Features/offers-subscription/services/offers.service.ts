@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Offer, SubscriptionModel } from '../models';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class OffersService {
   private apiUrl: any;
 

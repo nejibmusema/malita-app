@@ -22,8 +22,10 @@ export class SubscriptionsEffect {
       ofType(invokeSubscriptionsAPI),
       withLatestFrom(this._store.pipe(select(selectSubscriptions))),
       mergeMap(([action, subscriptionFormStore]) => {
-        debugger;
-        if (subscriptionFormStore === null) {
+        var subscriptionById = subscriptionFormStore.filter(
+          (_) => _.offerId == action.offerId
+        );
+        if (subscriptionFormStore.length > 0 && subscriptionById[0]) {
           return EMPTY;
         }
         return this._offersService.getOfferDetail(action.offerId).pipe(

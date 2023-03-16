@@ -6,6 +6,7 @@ import { OffersService } from '../../services';
 import {
   offersFetchAPISuccess,
   invokeOffersAPI,
+  refreshOffersAPI,
 } from '../actions/offers.action';
 import { selectOffers } from '../selectors/offers.selector';
 
@@ -25,6 +26,18 @@ export class OffersEffect {
         if (offerFormStore.length > 0) {
           return EMPTY;
         }
+        return this._offersService
+          .getOffers()
+          .pipe(map((data) => offersFetchAPISuccess({ allOffers: data })));
+      })
+    )
+  );
+
+  refreshAllOffers$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(refreshOffersAPI),
+      withLatestFrom(this._store.pipe(select(selectOffers))),
+      mergeMap(([, offerFormStore]) => {
         return this._offersService
           .getOffers()
           .pipe(map((data) => offersFetchAPISuccess({ allOffers: data })));

@@ -9,3 +9,7 @@ export const offersFetchAPISuccess = createAction(
   '[Offers API] Fetch API Success',
   props<{ allOffers: Offer[] }>()
 );
+
+export const refreshOffersAPI = createAction(
+  '[Offers API] Refresh Offers Fetch API'
+);

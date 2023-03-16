@@ -22,7 +22,6 @@ export class SubscriptionsEffect {
       ofType(invokeSubscriptionsAPI),
       withLatestFrom(this._store.pipe(select(selectSubscriptions))),
       mergeMap(([action, subscriptionFormStore]) => {
-        debugger;
         if (subscriptionFormStore === null) {
           return EMPTY;
         }

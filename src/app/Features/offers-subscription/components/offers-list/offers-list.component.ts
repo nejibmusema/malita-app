@@ -3,13 +3,14 @@ import { select, Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import {
   invokeOffersAPI,
-  selectOffers,
+  refreshOffersAPI,
   selectSortedOffers,
   invokeSubscriptionsAPI,
   selectSubscriptionById,
 } from '../../store';
 import { OffersDetailComponent } from '..';
 import { Offer } from '../../models';
+import { LoaderButtonConfig } from '@malita/shared';
 
 @Component({
   selector: 'app-offers-list',
@@ -18,6 +19,11 @@ import { Offer } from '../../models';
 })
 export class OffersListComponent implements OnInit {
   public offersList: Offer[];
+  public buttonConfig: LoaderButtonConfig = {
+    name: 'Refresh',
+    timeInterval: 10,
+    isDisabled: false,
+  };
   constructor(private _store: Store, public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -57,5 +63,9 @@ export class OffersListComponent implements OnInit {
 
   private _getOfferDetails(offerId: number) {
     return this._store.pipe(select(selectSubscriptionById(offerId)));
+  }
+
+  public refreshOffers(event: boolean) {
+    if (event) this._store.dispatch(refreshOffersAPI());
   }
 }

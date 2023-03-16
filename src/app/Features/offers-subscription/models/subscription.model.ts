@@ -11,3 +11,8 @@ export interface Usage {
   used: number;
   limit: number;
 }
+
+export interface SubscriptionStateModel {
+  offerId: number;
+  subscriptions: SubscriptionModel[];
+}

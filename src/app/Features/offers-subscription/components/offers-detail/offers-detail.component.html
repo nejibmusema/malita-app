@@ -3,10 +3,10 @@
   <mat-form-field appearance="fill" *ngIf="subscriptionList">
     <mat-label>Sort Subscriptions</mat-label>
     <mat-select>
-      <mat-option (click)="sortSubscription('Asc')">
+      <mat-option (click)="getOfferDetails('Asc')">
         By Descending Order
       </mat-option>
-      <mat-option (click)="sortSubscription('Desc')">
+      <mat-option (click)="getOfferDetails('Desc')">
         By Ascending Order
       </mat-option>
     </mat-select>

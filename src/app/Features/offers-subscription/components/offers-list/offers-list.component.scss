@@ -9,6 +9,11 @@
         padding: var(--spacing-xl);
     }
 }
+.footer {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-xl);
+}
 
 @media only screen and (min-width: 480px) {
 }

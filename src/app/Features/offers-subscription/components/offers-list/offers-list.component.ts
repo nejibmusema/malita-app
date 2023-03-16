@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
+import {
+  invokeOffersAPI,
+  refreshOffersAPI,
+  selectSortedOffers,
+} from '../../store';
 import { OffersDetailComponent } from '..';
 import { Offer } from '../../models';
-import { OffersService } from '../../services';
+import { LoaderButtonConfig } from '@malita/shared';
 
 @Component({
   selector: 'app-offers-list',
@@ -10,41 +16,43 @@ import { OffersService } from '../../services';
   styleUrls: ['./offers-list.component.scss'],
 })
 export class OffersListComponent implements OnInit {
-  public offersList: Offer[];
-
-  constructor(
-    private _offersService: OffersService,
-    public dialog: MatDialog
-  ) {}
+  public offersList: Offer[] = [];
+  public buttonConfig: LoaderButtonConfig = {
+    name: 'Refresh',
+    timeInterval: 10,
+    isDisabled: false,
+  };
+  constructor(private _store: Store, public dialog: MatDialog) {}
 
   ngOnInit() {
-    this._getOffers();
+    this._store.dispatch(invokeOffersAPI());
+    this.getOffers('Asc');
   }
 
-  private _getOffers() {
-    this._offersService.getOffers().subscribe((response) => {
-      this.offersList = response;
-    });
+  public getOffers(sortType: string) {
+    this._store
+      .pipe(select(selectSortedOffers(sortType)))
+      .subscribe((response) => {
+        this.offersList = response;
+      });
   }
 
   public onCardOpened(event: { offerId: number }) {
-    this._getOfferDetails(event.offerId).subscribe((response) => {
-      const dialogRef = this.dialog.open(OffersDetailComponent, {
-        data: response,
-        width: window.innerWidth > 640 ? '45%' : '100%',
-        maxHeight: '90vh',
-      });
+    const dialogRef = this.dialog.open(OffersDetailComponent, {
+      data: event.offerId,
+      width: window.innerWidth > 640 ? '45%' : '100%',
+      maxHeight: '90vh',
+    });
 
-      dialogRef.afterClosed().subscribe(({ event, data }) => {
-        if (!event) {
-          return;
-        }
-      });
+    dialogRef.afterClosed().subscribe(({ event, data }) => {
+      if (!event) {
+        return;
+      }
     });
   }
 
-  private _getOfferDetails(offerId: number) {
-    return this._offersService.getOfferDetail(offerId);
+  public refreshOffers(event: boolean) {
+    if (event) this._store.dispatch(refreshOffersAPI());
   }
 
   public sortOffers(type: string) {

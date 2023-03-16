@@ -4,11 +4,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as fromComponents from './components';
 import * as fromDirectives from './directives';
 import * as fromServices from './services';
-import { MaterialModule } from '@malita/material';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [fromComponents.components, fromDirectives.directives],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule],
+  imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule],
   exports: [fromComponents.components, fromDirectives.directives],
   providers: [fromServices.services],
 })

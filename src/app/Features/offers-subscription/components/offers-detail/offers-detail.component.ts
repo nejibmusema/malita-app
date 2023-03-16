@@ -2,7 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { SubscriptionModel } from '../../models';
-import { invokeSubscriptionsAPI, selectSortedSubscriptions } from '../../store';
+import {
+  invokeSubscriptionsAPI,
+  selectSortedSubscriptions,
+  selectSubscriptionById,
+} from '../../store';
 
 @Component({
   selector: 'app-offers-detail',
@@ -24,7 +28,7 @@ export class OffersDetailComponent implements OnInit {
 
   public getOfferDetails(sortType: string) {
     this._store
-      .pipe(select(selectSortedSubscriptions(this.offerId, sortType)))
+      .pipe(select(selectSubscriptionById(this.offerId, sortType)))
       .subscribe((response) => {
         this.subscriptionList = response?.subscriptions;
       });

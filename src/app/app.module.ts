@@ -35,6 +35,15 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
       multi: true,
     },
     { provide: 'environment', useValue: environment },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {
+        duration: 5000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['light-error-snackbar'],
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -5,8 +5,6 @@ import {
   invokeOffersAPI,
   refreshOffersAPI,
   selectSortedOffers,
-  invokeSubscriptionsAPI,
-  selectSubscriptionById,
 } from '../../store';
 import { OffersDetailComponent } from '..';
 import { Offer } from '../../models';
@@ -18,7 +16,7 @@ import { LoaderButtonConfig } from '@malita/shared';
   styleUrls: ['./offers-list.component.scss'],
 })
 export class OffersListComponent implements OnInit {
-  public offersList: Offer[];
+  public offersList: Offer[] = [];
   public buttonConfig: LoaderButtonConfig = {
     name: 'Refresh',
     timeInterval: 10,
@@ -55,5 +53,50 @@ export class OffersListComponent implements OnInit {
 
   public refreshOffers(event: boolean) {
     if (event) this._store.dispatch(refreshOffersAPI());
+  }
+
+  public sortOffers(type: string) {
+    switch (type) {
+      case 'Asc': {
+        this.offersList.sort(this._ascSort);
+        break;
+      }
+      case 'Desc': {
+        this.offersList.sort(this._descSort);
+        break;
+      }
+    }
+  }
+
+  /**
+   * sorts the array in asc order based on contract Start date
+   * @param a
+   * @param b
+   * @returns
+   */
+  private _ascSort(a: Offer, b: Offer) {
+    if (new Date(a.contractStartDate) < new Date(b.contractStartDate)) {
+      return -1;
+    }
+    if (new Date(a.contractStartDate) > new Date(b.contractStartDate)) {
+      return 1;
+    }
+    return 0;
+  }
+
+  /**
+   * sorts the array in desc order based on contract Start Date
+   * @param a
+   * @param b
+   * @returns
+   */
+  private _descSort(a: Offer, b: Offer) {
+    if (new Date(a.contractStartDate) < new Date(b.contractStartDate)) {
+      return 1;
+    }
+    if (new Date(a.contractStartDate) > new Date(b.contractStartDate)) {
+      return -1;
+    }
+    return 0;
   }
 }

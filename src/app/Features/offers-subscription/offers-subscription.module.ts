@@ -6,12 +6,9 @@ import { MaterialModule } from '@malita/material';
 import { SharedModule } from '@malita/shared';
 import { OffersSubscriptionRoutingModule } from './offers-subscription-routing.module';
 import * as fromComponents from './components';
-import {
-  offersReducer,
-  subscriptionsReducer,
-  OffersEffect,
-  SubscriptionsEffect,
-} from './store';
+import { OffersEffect, SubscriptionsEffect } from './store';
+import { offersReducer } from './store/reducers/offers.reducer';
+import { subscriptionsReducer } from './store/reducers/subscriptions.reducer';
 
 @NgModule({
   declarations: [fromComponents.components],

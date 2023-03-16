@@ -23,7 +23,6 @@ export class OffersDetailComponent implements OnInit {
   }
 
   public getOfferDetails(sortType: string) {
-    debugger;
     this._store
       .pipe(select(selectSubscriptionById(this.offerId, sortType)))
       .subscribe((response) => {

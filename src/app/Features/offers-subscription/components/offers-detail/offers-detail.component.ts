@@ -1,60 +1,32 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { select, Store } from '@ngrx/store';
 import { SubscriptionModel } from '../../models';
+import { invokeSubscriptionsAPI, selectSortedSubscriptions } from '../../store';
 
 @Component({
   selector: 'app-offers-detail',
   templateUrl: './offers-detail.component.html',
   styleUrls: ['./offers-detail.component.scss'],
 })
-export class OffersDetailComponent {
+export class OffersDetailComponent implements OnInit {
+  public subscriptionList: SubscriptionModel[];
   constructor(
     public dialogRef: MatDialogRef<OffersDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public subscriptionList: SubscriptionModel[]
+    @Inject(MAT_DIALOG_DATA) public offerId: number,
+    private _store: Store
   ) {}
 
-  public sortSubscription(type: string) {
-    switch (type) {
-      case 'Asc': {
-        this.subscriptionList.sort(this._ascSort);
-        break;
-      }
-      case 'Desc': {
-        this.subscriptionList.sort(this._descSort);
-        break;
-      }
-    }
+  ngOnInit() {
+    this._store.dispatch(invokeSubscriptionsAPI({ offerId: this.offerId }));
+    this.getOfferDetails('Asc');
   }
 
-  /**
-   * sorts the array in asc order based on contract Start date
-   * @param a
-   * @param b
-   * @returns
-   */
-  private _ascSort(a: SubscriptionModel, b: SubscriptionModel) {
-    if (a.name < b.name || a.line < b.line) {
-      return -1;
-    }
-    if (a.name > b.name || a.line > b.line) {
-      return 1;
-    }
-    return 0;
-  }
-
-  /**
-   * sorts the array in desc order based on contract Start Date
-   * @param a
-   * @param b
-   * @returns
-   */
-  private _descSort(a: SubscriptionModel, b: SubscriptionModel) {
-    if (a.name < b.name || a.line < b.line) {
-      return 1;
-    }
-    if (a.name > b.name || a.line > b.line) {
-      return -1;
-    }
-    return 0;
+  public getOfferDetails(sortType: string) {
+    this._store
+      .pipe(select(selectSortedSubscriptions(this.offerId, sortType)))
+      .subscribe((response) => {
+        this.subscriptionList = response?.subscriptions;
+      });
   }
 }

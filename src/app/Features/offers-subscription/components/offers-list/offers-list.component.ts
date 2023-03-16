@@ -40,29 +40,17 @@ export class OffersListComponent implements OnInit {
   }
 
   public onCardOpened(event: { offerId: number }) {
-    this._getOfferDetails(event.offerId).subscribe((response) => {
-      if (!response) {
-        this._store.dispatch(
-          invokeSubscriptionsAPI({ offerId: event.offerId })
-        );
-      } else {
-        const dialogRef = this.dialog.open(OffersDetailComponent, {
-          data: response?.subscriptions,
-          width: window.innerWidth > 640 ? '45%' : '100%',
-          maxHeight: '90vh',
-        });
+    const dialogRef = this.dialog.open(OffersDetailComponent, {
+      data: event.offerId,
+      width: window.innerWidth > 640 ? '45%' : '100%',
+      maxHeight: '90vh',
+    });
 
-        dialogRef.afterClosed().subscribe(({ event, data }) => {
-          if (!event) {
-            return;
-          }
-        });
+    dialogRef.afterClosed().subscribe(({ event, data }) => {
+      if (!event) {
+        return;
       }
     });
-  }
-
-  private _getOfferDetails(offerId: number) {
-    return this._store.pipe(select(selectSubscriptionById(offerId)));
   }
 
   public refreshOffers(event: boolean) {

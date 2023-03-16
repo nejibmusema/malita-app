@@ -9,5 +9,6 @@ import { MaterialModule } from '../material/material.module';
   declarations: [fromComponents.components, fromDirectives.directives],
   imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule],
   exports: [fromComponents.components, fromDirectives.directives],
+  providers: [fromServices.services],
 })
 export class SharedModule {}

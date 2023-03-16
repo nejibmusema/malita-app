@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@malita/authentication';
 import { LoaderComponent } from './shared/components/loader/loader.component';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { LoginPayload, LoginResponse } from '../models';
 
@@ -10,7 +11,8 @@ export class AuthService {
 
   constructor(
     @Inject('environment') environment: any,
-    private http: HttpClient
+    private http: HttpClient,
+    private _router: Router
   ) {
     this.apiUrl = environment.apiUrl;
   }
@@ -25,6 +27,12 @@ export class AuthService {
     this.isAuthenticated$.next(false);
     localStorage.clear(); // clear anything on the local storage
     return this.http.get<any>(url);
+  }
+
+  public redirectToLogin() {
+    this.isAuthenticated$.next(false);
+    localStorage.clear(); // clear anything on the local storage
+    this._router.navigate(['/auth/login']);
   }
 
   /**

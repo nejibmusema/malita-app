@@ -2,11 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { SubscriptionModel } from '../../models';
-import {
-  invokeSubscriptionsAPI,
-  selectSortedSubscriptions,
-  selectSubscriptionById,
-} from '../../store';
+import { invokeSubscriptionsAPI, selectSubscriptionById } from '../../store';
 
 @Component({
   selector: 'app-offers-detail',
